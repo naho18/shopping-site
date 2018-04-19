@@ -109,14 +109,17 @@ def add_to_cart(melon_id):
 
     melon = melons.read_melon_types_from_file('melons.txt')
 
-
-    if melon_id in session["cart"]:
-        session["cart"][melon_id] += 1
-    else:
+    if session == False:
         session["cart"] = {}
 
+    if melon_id in session['cart']:
+        session["cart"][melon_id] += 1
+    else:
+        session["cart"][melon_id] = 1
+
     flash("Successfully added to your cart!")
-    return render_template("cart.html")
+
+    return redirect("/cart")
 
 
 @app.route("/login", methods=["GET"])
